@@ -1,0 +1,38 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+{% from "_macros.html" import render_field %}
+<div class="container">
+    <div class="row">
+            <h3>
+                Alumnos
+                <h4><a href="index.html" class="btn btn-danger">nuevo</a></h4>
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Nombre</th>
+                    <th>A paterno</th>
+                    
+                    <th>Email</th>
+                    <th>acciones</th>
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for alum in alumnos%}
+                    <tr>
+                        <td>{{alum.nombre}}</td>
+                        <td>{{alum.apaterno}}</td>
+                        <td>{{alum.email}}</td>
+                        <td><a href="eliminar.html?id={{alum.id}}" class="btn btn-danger"> eliminar</a></td>
+                        <td><a href="modificar.html?id={{alum.id}}" class="btn btn-danger">modificar</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+    </div>
+</div>
+
+{% endblock %}

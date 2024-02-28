@@ -26,11 +26,20 @@ def before_request():
 def after_request(response):
     return response
 
-@app.route("/index")
+@app.route("/index", methods = ["GET","POST"])
 def index():
-    escuela = "UTL"
-    alumnos = ["Mario", "Pedro", "Luis", "David"]
-    return render_template("index.html" , escuela = escuela, alumnos = alumnos)
+    alum_form = forms.UserForm2(request.form)
+    if request.method == "POST" :
+        alum=Alumnos(nombre=alum_form.nombre.data,apaterno=alum_form.apaterno.data,email=alum_form.email.data)
+        db.session.add(alum)
+        db.session.commit()
+    return render_template("index.html",form=alum_form)
+
+@app.route("/ABC_Completo", methods = ["GET","POST"])
+def ABC_Completo():
+    alum_form=forms.UserForm2(request.form)
+    alumnos=Alumnos.query.all()
+    return render_template("ABC_Completo.html", alumnos=alumnos)
 
 @app.route("/alumnos", methods = ["GET","POST"])
 def alum():
